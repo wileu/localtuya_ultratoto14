@@ -55,7 +55,11 @@
                     "device_class": "Device Class",
                     "scaling": "Scaling Factor",
                     "state_on": "On Value",
-                    "state_off": "Off Value"
+                    "state_off": "Off Value",
+                    "brightness": "Brightness",
+                    "brightness_lower": "Brightness Lower Value",
+                    "brightness_upper": "Brightness Upper Value",
+                    "color_temp": "Color Temperature"
                 }
             }
         }
@@ -90,7 +94,11 @@
                     "device_class": "Device Class",
                     "scaling": "Scaling Factor",
                     "state_on": "On Value",
-                    "state_off": "Off Value"
+                    "state_off": "Off Value",
+                    "brightness": "Brightness",
+                    "brightness_lower": "Brightness Lower Value",
+                    "brightness_upper": "Brightness Upper Value",
+                    "color_temp": "Color Temperature"
                 }
             },
             "yaml_import": {
