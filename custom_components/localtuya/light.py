@@ -1,9 +1,9 @@
 """Platform to locally control Tuya-based light devices."""
 import logging
 import textwrap
-import homeassistant.util.color as color_util
 from functools import partial
 
+import homeassistant.util.color as color_util
 import voluptuous as vol
 from homeassistant.components.light import (
     ATTR_BRIGHTNESS,
@@ -11,8 +11,8 @@ from homeassistant.components.light import (
     ATTR_HS_COLOR,
     DOMAIN,
     SUPPORT_BRIGHTNESS,
-    SUPPORT_COLOR_TEMP,
     SUPPORT_COLOR,
+    SUPPORT_COLOR_TEMP,
     LightEntity,
 )
 from homeassistant.const import CONF_BRIGHTNESS, CONF_COLOR_TEMP
@@ -23,8 +23,8 @@ from .const import (
     CONF_BRIGHTNESS_UPPER,
     CONF_COLOR,
     CONF_COLOR_MODE,
-    CONF_COLOR_TEMP_MIN_KELVIN,
     CONF_COLOR_TEMP_MAX_KELVIN,
+    CONF_COLOR_TEMP_MIN_KELVIN,
 )
 
 _LOGGER = logging.getLogger(__name__)
