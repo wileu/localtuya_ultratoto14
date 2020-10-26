@@ -96,12 +96,13 @@ class LocaltuyaLight(LocalTuyaEntity, LightEntity):
         self._min_mired = round(
             MIRED_TO_KELVIN_CONST
             / self._config.get(CONF_COLOR_TEMP_MAX_KELVIN, DEFAULT_MAX_KELVIN)
-        )        
+        )
         self._is_white_mode = True  # Hopefully sane default
         self._hs = None
         self._is_rgb_mode = (
             True if self._upper_brightness != DEFAULT_UPPER_BRIGHTNESS else False
         )
+
     @property
     def is_on(self):
         """Check if Tuya light is on."""
