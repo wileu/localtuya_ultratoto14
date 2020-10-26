@@ -239,7 +239,7 @@ class LocaltuyaLight(LocalTuyaEntity, LightEntity):
         if supported & SUPPORT_COLOR:
             self._is_white_mode = self.dps_conf(CONF_COLOR_MODE) == "white"
             if self._is_white_mode:
-                self._hs = None
+                self._hs = [0, 0]
 
         if self._is_white_mode:
             if supported & SUPPORT_BRIGHTNESS:
