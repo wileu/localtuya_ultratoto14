@@ -99,7 +99,6 @@ class LocaltuyaLight(LocalTuyaEntity, LightEntity):
         )
         self._is_white_mode = True  # Hopefully sane default
         self._hs = None
-        self._is_rgb_mode = None
 
     @property
     def is_on(self):
@@ -153,6 +152,9 @@ class LocaltuyaLight(LocalTuyaEntity, LightEntity):
             supports |= SUPPORT_COLOR | SUPPORT_BRIGHTNESS
         return supports
 
+    def is_color_rgb_encoded(self):
+        return len(self.dps_conf(CONF_COLOR)) > 12
+
     async def async_turn_on(self, **kwargs):
         """Turn on or control the light."""
         states = {}
@@ -170,7 +172,7 @@ class LocaltuyaLight(LocalTuyaEntity, LightEntity):
                 states[self._config.get(CONF_BRIGHTNESS)] = brightness
 
             else:
-                if self._is_rgb_mode:
+                if self.is_color_rgb_encoded():
                     rgb = color_util.color_hsv_to_RGB(
                         self._hs[0],
                         self._hs[1],
@@ -192,10 +194,7 @@ class LocaltuyaLight(LocalTuyaEntity, LightEntity):
 
         if ATTR_HS_COLOR in kwargs and (features & SUPPORT_COLOR):
             hs = kwargs[ATTR_HS_COLOR]
-            if self._is_rgb_mode is None:
-                self._is_rgb_mode = len(self.dps_conf(CONF_COLOR)) > 12
-
-            if self._is_rgb_mode:
+            if self.is_color_rgb_encoded():
                 rgb = color_util.color_hsv_to_RGB(
                     hs[0], hs[1], int(self._brightness * 100 / self._upper_brightness)
                 )
@@ -247,7 +246,7 @@ class LocaltuyaLight(LocalTuyaEntity, LightEntity):
                 self._brightness = self.dps_conf(CONF_BRIGHTNESS)
         else:
             color = self.dps_conf(CONF_COLOR)
-            if self._is_rgb_mode:
+            if self.is_color_rgb_encoded():
                 hue = int(color[6:10], 16)
                 sat = int(color[10:12], 16)
                 value = int(color[12:14], 16)
