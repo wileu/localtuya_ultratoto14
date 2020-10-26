@@ -99,9 +99,7 @@ class LocaltuyaLight(LocalTuyaEntity, LightEntity):
         )
         self._is_white_mode = True  # Hopefully sane default
         self._hs = None
-        self._is_rgb_mode = (
-            True if self._upper_brightness != DEFAULT_UPPER_BRIGHTNESS else False
-        )
+        self._is_rgb_mode = None
 
     @property
     def is_on(self):
@@ -194,6 +192,9 @@ class LocaltuyaLight(LocalTuyaEntity, LightEntity):
 
         if ATTR_HS_COLOR in kwargs and (features & SUPPORT_COLOR):
             hs = kwargs[ATTR_HS_COLOR]
+            if self._is_rgb_mode is None:
+                self._is_rgb_mode = len(self.dps_conf(CONF_COLOR)) > 12
+
             if self._is_rgb_mode:
                 rgb = color_util.color_hsv_to_RGB(
                     hs[0], hs[1], int(self._brightness * 100 / self._upper_brightness)
