@@ -254,7 +254,9 @@ class LocaltuyaLight(LocalTuyaEntity, LightEntity):
                     self._hs = [hue, (sat * 100 / 255)]
                     self._brightness = value
                 else:
-                    hue, sat, value = [int(value, 16) for value in textwrap.wrap(color, 4)]
+                    hue, sat, value = [
+                        int(value, 16) for value in textwrap.wrap(color, 4)
+                    ]
                     self._hs = [hue, sat / 10.0]
                     self._brightness = value
 
