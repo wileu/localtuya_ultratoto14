@@ -246,16 +246,17 @@ class LocaltuyaLight(LocalTuyaEntity, LightEntity):
                 self._brightness = self.dps_conf(CONF_BRIGHTNESS)
         else:
             color = self.dps_conf(CONF_COLOR)
-            if self.__is_color_rgb_encoded():
-                hue = int(color[6:10], 16)
-                sat = int(color[10:12], 16)
-                value = int(color[12:14], 16)
-                self._hs = [hue, (sat * 100 / 255)]
-                self._brightness = value
-            else:
-                hue, sat, value = [int(value, 16) for value in textwrap.wrap(color, 4)]
-                self._hs = [hue, sat / 10.0]
-                self._brightness = value
+            if color is not None:
+                if self.__is_color_rgb_encoded():
+                    hue = int(color[6:10], 16)
+                    sat = int(color[10:12], 16)
+                    value = int(color[12:14], 16)
+                    self._hs = [hue, (sat * 100 / 255)]
+                    self._brightness = value
+                else:
+                    hue, sat, value = [int(value, 16) for value in textwrap.wrap(color, 4)]
+                    self._hs = [hue, sat / 10.0]
+                    self._brightness = value
 
         if supported & SUPPORT_COLOR_TEMP:
             self._color_temp = self.dps_conf(CONF_COLOR_TEMP)
